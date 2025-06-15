@@ -82,6 +82,18 @@
     border-radius: 35px;
 }
 
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
 .react-icon {
     position: absolute;
     bottom: 10px;
@@ -95,6 +107,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: float 3s ease-in-out infinite;
+    animation-delay: 1.5s;
 }
 
 .react-icon img {
@@ -123,6 +137,19 @@
 .tech-stack .tech-icon {
     width: 65px;
     height: 65px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.tech-stack .tech-icon:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.tech-stack .tech-icon:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.tech-stack .tech-icon:nth-child(3) {
+    animation-delay: 1s;
 }
 
 .tech-stack .tech-icon img {
