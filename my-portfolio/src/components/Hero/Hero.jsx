@@ -14,7 +14,7 @@ const Hero = () => {
 
     const currentWord = words[index];
   return (
-    <section className="hero-container">
+    <section className="hero-container" id="hero">
         <div className="hero-content">            
                         <h2 aria-live="polite">
                             <span key={currentWord} className="hero-rotating-word">{currentWord}</span> interfaces that inspire.

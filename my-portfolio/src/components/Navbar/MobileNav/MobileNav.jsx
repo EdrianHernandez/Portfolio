@@ -10,10 +10,11 @@ const MobileNav = ({isOpen, toggleMenu}) => {
                     <button className="mobile-close-btn" aria-label="Close menu" onClick={toggleMenu}>✕</button>
                     <h1 className="mobile-nav-title">Ed</h1>
                     <ul>
-                        <li><a className="menu-item" onClick={toggleMenu}>Home</a></li>
-                        <li><a className="menu-item" onClick={toggleMenu}>Skills</a></li>
-                        <li><a className="menu-item" onClick={toggleMenu}>Projects</a></li>
-                        <li><a className="menu-item" onClick={toggleMenu}>Contact Me</a></li>
+                        <li><a className="menu-item" href="#hero" onClick={toggleMenu}>Home</a></li>
+                        <li><a className="menu-item" href="#skills" onClick={toggleMenu}>Skills</a></li>
+                        <li><a className="menu-item" href="#projects" onClick={toggleMenu}>Projects</a></li>
+                        <li><a className="menu-item" href="#designs" onClick={toggleMenu}>Designs</a></li>
+                        <li><a className="menu-item" href="#contact" onClick={toggleMenu}>Contact Me</a></li>
                         <li>
                             <button className="contact-btn" onClick={() => {}}>
                                 Hire Me

@@ -72,6 +72,16 @@
     opacity: 1;
 }
 
+/* Active link state */
+.menu-item.active {
+    font-weight: 600;
+}
+.menu-item.active::before {
+    width: 100%;
+    transform: translateX(0);
+    opacity: 1;
+}
+
 .contact-btn {
     font-size: 0.9rem;
     font-weight: 500;

@@ -4,6 +4,21 @@
   position: relative;
 }
 
+.contact-section {
+  margin: 4rem 0 6rem;
+  padding: 0 2rem;
+}
+.contact-section h5 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 600px) {
+  .contact-section { margin: 3rem 0 4rem; padding: 0 1rem; }
+  .contact-section h5 { font-size: 1.25rem; }
+}
+
 @media (max-width: 1300px) {
   .container {
     padding: 0 2rem;
