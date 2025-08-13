@@ -2,37 +2,28 @@ import React from 'react';
 import './MobileNav.css';
 
 const MobileNav = ({isOpen, toggleMenu}) => {
-  return (
-    <>
-        <div className={`mobile-menu ${isOpen ? 'active' : ""}`} onClick={toggleMenu}>
-            <div className="mobile-menu-container">
-                <h1 className="mobile-nav-title">Ed</h1>
-
-                <ul>
-                    <li>
-                        <a className="menu-item">Home</a>
-                    </li>
-
-                    <li>
-                        <a className="menu-item">Skills</a>
-                    </li>
-
-                    <li>
-                        <a className="menu-item">Projects</a>
-                    </li>
-
-                    <li>
-                        <a className="menu-item">Contact Me</a>
-                    </li>
-
-                    <button className="contact-btn" onClick={() => {}}>
-                        Hire Me
-                    </button>
-                </ul>
+    const stop = (e) => e.stopPropagation();
+    return (
+        <>
+            <div className={`mobile-menu ${isOpen ? 'active' : ''}`} onClick={toggleMenu} aria-hidden={!isOpen} role="dialog" aria-label="Mobile navigation menu">
+                <div className="mobile-menu-container" onClick={stop}>
+                    <button className="mobile-close-btn" aria-label="Close menu" onClick={toggleMenu}>✕</button>
+                    <h1 className="mobile-nav-title">Ed</h1>
+                    <ul>
+                        <li><a className="menu-item" onClick={toggleMenu}>Home</a></li>
+                        <li><a className="menu-item" onClick={toggleMenu}>Skills</a></li>
+                        <li><a className="menu-item" onClick={toggleMenu}>Projects</a></li>
+                        <li><a className="menu-item" onClick={toggleMenu}>Contact Me</a></li>
+                        <li>
+                            <button className="contact-btn" onClick={() => {}}>
+                                Hire Me
+                            </button>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </>
-  )
-}
+        </>
+    );
+};
 
 export default MobileNav

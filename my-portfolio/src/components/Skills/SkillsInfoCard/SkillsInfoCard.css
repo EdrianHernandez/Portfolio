@@ -52,3 +52,54 @@
     border-radius: 0.5rem;
     transition: all 0.5s ease-in-out;
 }
+
+@media (max-width: 1025px) {
+    .skills-info-card {
+        min-height: 20rem;
+    }
+    .skills-info-card h6 {
+        font-size: 1.05rem;
+        padding: 0.7rem 1.5rem;
+    }
+    .skills-info-content {
+        padding: 1.5rem 1.5rem 1.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .skills-info-card {
+        min-height: 19rem;
+    }
+    .skill-info p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .skills-info-card {
+        min-height: unset;
+    }
+    .skills-info-content {
+        padding: 1.25rem 1.25rem 1.5rem;
+    }
+    .skill-progress-bg {
+        height: 0.45rem;
+        margin: 0.75rem 0 0.85rem;
+    }
+    .skill-progress {
+        height: 0.45rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .skills-info-card h6 {
+        font-size: 0.95rem;
+        padding: 0.6rem 1.1rem;
+    }
+    .skill-info p {
+        font-size: 0.8rem;
+    }
+    .skills-info-content {
+        padding: 1rem 1rem 1.25rem;
+    }
+}

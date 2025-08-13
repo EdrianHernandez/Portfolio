@@ -1,14 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Hero.css'
 
 const Hero = () => {
+    const words = ["Design", "Develop", "Deliver"]; // rotating words
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex((prev) => (prev + 1) % words.length);
+        }, 2000); // change every 2 seconds
+        return () => clearInterval(interval);
+    }, []);
+
+    const currentWord = words[index];
   return (
     <section className="hero-container">
         <div className="hero-content">            
-            <h2>Crafting Modern Web Experiences</h2>
+                        <h2 aria-live="polite">
+                            <span key={currentWord} className="hero-rotating-word">{currentWord}</span> interfaces that inspire.
+                        </h2>
             <p>
-                Frontend Developer specializing in React | Turning creative ideas into 
-                elegant, high-performance digital solutions
+                I design and develop clean, scalable, and high-performing interfaces for the modern web.    
             </p>
         </div>
 
