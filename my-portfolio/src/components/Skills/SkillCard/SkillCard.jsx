@@ -1,19 +1,33 @@
 import React from 'react'
 import './SkillCard.css'
 
-const SkillCard = ({title, iconURL, isActive, onClick}) => {
-  return (
-    <div 
-        className={`skills-card ${isActive ? "active" : ""}`}
-        onClick={() => onClick()}
-    >
-        <div className="skills-icon">
-            <img src={iconURL} alt={title} />
-        </div>
+const SkillCard = ({ title, iconURL, isActive, onClick, id, ariaControls, refEl }) => {
+  const handleKey = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick();
+    }
+  };
 
-        <span>{title}</span>
+  return (
+    <div
+      id={id}
+      className={`skills-card ${isActive ? 'active' : ''}`}
+      onClick={() => onClick()}
+      role="tab"
+      tabIndex={0}
+      aria-selected={isActive}
+      aria-controls={ariaControls}
+      aria-label={title}
+      ref={refEl}
+      onKeyDown={handleKey}
+    >
+      <div className="skills-icon">
+        <img src={iconURL} alt="" aria-hidden={!isActive} />
+      </div>
+      <span>{title}</span>
     </div>
-  )
-}
+  );
+};
 
 export default SkillCard

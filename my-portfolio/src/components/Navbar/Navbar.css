@@ -12,15 +12,26 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem 0;
+    padding: 1rem;
     margin: 0 auto;
 }
 
 .nav-title {
-    font-size: 1.5rem;
+    font-family: 'Outfit', 'Segoe UI', sans-serif;
+    font-size: 1.75rem;
     font-weight: 600;
-    color: #fff;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #d9d2ff 0%, #a993fe 35%, #7e61e7 85%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+    line-height: 1;
+    cursor: default;
+    user-select: none;
+    transition: letter-spacing 0.3s ease;
 }
+
 
 .nav-content ul {
     display: flex;
@@ -126,12 +137,13 @@
   word-wrap: normal;
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
 
 @media(max-width: 425px) {
     .nav-title {
-        font-size: 1.5rem; 
+    font-size: 1.55rem; 
     }
 }
 
