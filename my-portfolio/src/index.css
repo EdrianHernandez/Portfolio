@@ -10,3 +10,13 @@ body {
   color: #fff;
   background-color: #060417;
 }
+
+/* Smooth scrolling for in-page anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset for sticky navbar so anchored sections aren't hidden */
+section {
+  scroll-margin-top: 90px; /* roughly nav height + spacing */
+}
