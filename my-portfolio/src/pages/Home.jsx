@@ -1,8 +1,8 @@
 import React from 'react'
-import Hero from '../components/Hero/Hero.jsx'
-import Skills from '../components/Skills/Skills.jsx'
-import Projects from '../components/Projects/Projects.jsx'
-import Designs from '../components/Designs/Designs.jsx'
+import Hero from '../components/Home/Hero/Hero.jsx'
+import Skills from '../components/Home/Skills/Skills.jsx'
+import Projects from '../components/Home/Projects/Projects.jsx'
+import Designs from '../components/Home/Designs/Designs.jsx'
 
 const Home = () => {
   return (

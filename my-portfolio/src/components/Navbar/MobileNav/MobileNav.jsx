@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './MobileNav.css';
 
-const MobileNav = ({isOpen, toggleMenu}) => {
+const MobileNav = ({isOpen, toggleMenu, onOpenContact}) => {
     const navigate = useNavigate();
     const location = useLocation();
     const goSection = (e, id) => {
@@ -19,7 +19,6 @@ const MobileNav = ({isOpen, toggleMenu}) => {
         }
         toggleMenu();
     }
-    const goContact = (e) => { e.preventDefault(); navigate('/contact'); toggleMenu(); }
     const stop = (e) => e.stopPropagation();
     return (
         <>
@@ -32,11 +31,10 @@ const MobileNav = ({isOpen, toggleMenu}) => {
                         <li><a className="menu-item" href="#skills" onClick={(e)=>goSection(e,'skills')}>Skills</a></li>
                         <li><a className="menu-item" href="#projects" onClick={(e)=>goSection(e,'projects')}>Projects</a></li>
                         <li><a className="menu-item" href="#designs" onClick={(e)=>goSection(e,'designs')}>Designs</a></li>
-                        <li><a className="menu-item" href="/contact" onClick={goContact}>Contact Me</a></li>
                         <li>
-                            <button className="contact-btn" onClick={() => {}}>
-                                Hire Me
-                            </button>
+                            <a className="mobile-hire-btn" href="#contact" onClick={(e)=>{ e.preventDefault(); onOpenContact ? onOpenContact() : goSection(e,'contact'); toggleMenu(); }} aria-label="Hire me">
+                                Hire me
+                            </a>
                         </li>
                     </ul>
                 </div>

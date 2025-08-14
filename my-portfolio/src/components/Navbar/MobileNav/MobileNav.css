@@ -91,7 +91,7 @@
 .mobile-menu.active li:nth-child(2){ animation-delay: .14s; }
 .mobile-menu.active li:nth-child(3){ animation-delay: .20s; }
 .mobile-menu.active li:nth-child(4){ animation-delay: .26s; }
-.mobile-menu.active li:nth-child(5){ animation-delay: .32s; }
+/* fifth item removed */
 
 @keyframes slideIn { to { opacity:1; transform: translateX(0); } }
 
@@ -105,16 +105,72 @@
 
 .mobile-menu .menu-item:active { transform: translateY(1px); }
 
-.mobile-menu .contact-btn {
-    width: 100%;
-    margin-top: .75rem;
-    font-size: 0.95rem;
-    box-shadow: 0 6px 18px -6px rgba(126,97,231,0.55);
+/* Mobile Hire me CTA */
+.mobile-hire-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.4rem;
+    min-height: 2.5rem;
+    padding: 0.9rem 1.15rem;
+    border-radius: 0.85rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: linear-gradient(90deg, #a48dff 0%, #8f75ff 55%, #7c5fe6 100%);
+    background-size: 160% 160%;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: .06em;
+    box-shadow: 0 6px 18px -6px rgba(170,148,254,0.45);
+    transition: background .6s ease, box-shadow .35s ease;
+    position: relative;
+    overflow: hidden; /* sheen */
+}
+.mobile-hire-btn:hover,
+.mobile-hire-btn:focus-visible {
+    background-position: 100% 50%;
+    box-shadow: 0 8px 22px -6px rgba(170,148,254,0.6);
+}
+.mobile-hire-btn:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
+.mobile-hire-btn:active { transform: scale(.98); }
+
+/* Sheen sweep, aligned with projects button */
+.mobile-hire-btn::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -40%;
+    width: 40%; height: 100%;
+    background: linear-gradient(75deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.55) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-18deg) translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+.mobile-hire-btn:hover::before,
+.mobile-hire-btn:focus-visible::before {
+    animation: prBtnSheen 1.4s ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-hire-btn { transition: none; }
+    .mobile-hire-btn::before { display: none; }
 }
 
 /* Tablet (>=600px) narrower panel */
 @media (min-width: 600px) {
     .mobile-menu-container { width: clamp(330px, 50vw, 480px); }
+}
+
+/* Tablet CTA sizing (600px–1024px) */
+@media (min-width: 600px) and (max-width: 1024px) {
+    .mobile-hire-btn {
+        width: 100%;
+        min-height: 2.85rem;
+        padding: 0.95rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 0.95rem;
+        box-shadow: 0 10px 24px -8px rgba(170,148,254,0.5);
+    }
 }
 
 /* Show mobile menu system at widths <= 1024px (tablet+phones) */
@@ -127,4 +183,13 @@
     .mobile-menu-container { width: 78vw; padding: 2rem 1.75rem 2.5rem; }
     .mobile-menu ul { gap: 1.45rem; }
     .mobile-nav-title { font-size: 1.45rem; }
+    .mobile-hire-btn { width: 100%; min-height: 2.6rem; font-size: 0.92rem; }
+}
+
+/* Keyframes for sheen */
+@keyframes prBtnSheen {
+    0% { transform: skewX(-18deg) translateX(-120%); opacity: 0; }
+    15% { opacity: 1; }
+    55% { opacity: .9; }
+    100% { transform: skewX(-18deg) translateX(320%); opacity: 0; }
 }

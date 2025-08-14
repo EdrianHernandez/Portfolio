@@ -1,6 +1,6 @@
 import React from 'react'
 import './Skills.css'
-import { SKILLS } from '../../utils/data'
+import { SKILLS } from '../../../utils/data'
 import SkillCard from './SkillCard/SkillCard.jsx'
 import SkillsInfoCard from './SkillsInfoCard/SkillsInfoCard.jsx'
 
@@ -32,7 +32,7 @@ const Skills = () => {
     if(el) {
       el.focus({ preventScroll: true })
       // Smooth center scroll on narrow screens
-      if(window.matchMedia('(max-width: 680px)').matches) {
+  if(window.matchMedia('(max-width: 1025px)').matches) {
         el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
       }
     }
@@ -42,7 +42,7 @@ const Skills = () => {
     // Ensure active tab is visible when selection changes on narrow horizontal scroll layout
     const activeIndex = SKILLS.findIndex(s => s.title === selectedSkill.title)
     const el = tabRefs.current[activeIndex]
-    if(el && window.matchMedia('(max-width: 680px)').matches) {
+  if(el && window.matchMedia('(max-width: 1025px)').matches) {
       el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
     }
   }, [selectedSkill])

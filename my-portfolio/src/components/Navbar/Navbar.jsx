@@ -5,7 +5,7 @@ import './Navbar.css'
 import MobileNav from './MobileNav/MobileNav'
 import { NAV_LINKS } from './navConfig'
 
-const Navbar = () => {
+const Navbar = ({ onOpenContact }) => {
     const [openMenu, setOpenMenu] = useState(false)
     const [active, setActive] = useState('hero')
     const navigate = useNavigate();
@@ -22,7 +22,7 @@ const Navbar = () => {
         }
     }, [openMenu])
 
-    // IntersectionObserver scroll spy for section links (ignores contact route)
+    // IntersectionObserver scroll spy for section links
     useEffect(() => {
         if (location.pathname !== '/') return
         const sections = NAV_LINKS.filter(l => l.type === 'section')
@@ -61,9 +61,20 @@ const Navbar = () => {
         if (openMenu) setOpenMenu(false)
     }
 
+    const onHireClick = (e) => {
+        e.preventDefault()
+        if (typeof onOpenContact === 'function') {
+            onOpenContact()
+        } else {
+            // Fallback: scroll to contact section if exists
+            const link = { id: 'contact', label: 'Contact', type: 'section' }
+            onLinkClick(e, link)
+        }
+    }
+
     return (
         <>
-            <MobileNav isOpen={openMenu} toggleMenu={toggleMenu} />
+            <MobileNav isOpen={openMenu} toggleMenu={toggleMenu} onOpenContact={onOpenContact} />
 
             <nav className="nav-wrapper">
                 <div className="nav-content">
@@ -83,12 +94,17 @@ const Navbar = () => {
                                                                 </a>
                                                         </li>
                                                 ))}
-                                                <li role="none">
-                                                    <button className="contact-btn" onClick={()=>onLinkClick(new Event('click'), { id:'contact', type:'route', to:'/contact' })}>
-                                                        Hire Me
-                                                    </button>
-                                                </li>
+
                                         </ul>
+
+                    <a
+                        href="#contact"
+                        className="hire-btn"
+                        onClick={onHireClick}
+                        aria-label="Hire me"
+                    >
+                        Hire me
+                    </a>
 
                     <button className="menu-btn" onClick={toggleMenu}>
                         <span
