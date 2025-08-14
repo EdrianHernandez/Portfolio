@@ -1,44 +1,65 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react';
+import React, { useEffect, useCallback } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useState } from 'react'
 import './Navbar.css'
-import MobileNav from './MobileNav/MobileNav';
+import MobileNav from './MobileNav/MobileNav'
+import { NAV_LINKS } from './navConfig'
 
 const Navbar = () => {
-    const [openMenu, setOpenMenu] = useState(false);
-    const [active, setActive] = useState('hero');
+    const [openMenu, setOpenMenu] = useState(false)
+    const [active, setActive] = useState('hero')
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const toggleMenu = () => {
-        setOpenMenu(!openMenu);
-    };
+    const toggleMenu = () => setOpenMenu(o => !o)
 
-    // Scroll spy to update active link
+    // Prevent body scroll when mobile nav open
     useEffect(() => {
-        const sectionIds = ['hero','skills','projects','designs','contact'];
-        const handler = () => {
-            const scrollPos = window.scrollY + 120; // offset for navbar
-            let current = 'hero';
-            for (const id of sectionIds) {
-                const el = document.getElementById(id);
-                if (el && el.offsetTop <= scrollPos) {
-                    current = id;
-                }
-            }
-            setActive(current);
-        };
-        window.addEventListener('scroll', handler, { passive: true });
-        handler();
-        return () => window.removeEventListener('scroll', handler);
-    }, []);
-
-    const handleNavClick = (e, id) => {
-        e.preventDefault();
-        const el = document.getElementById(id);
-        if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            setActive(id);
-            if (openMenu) setOpenMenu(false);
+        if (openMenu) {
+            const prev = document.body.style.overflow
+            document.body.style.overflow = 'hidden'
+            return () => { document.body.style.overflow = prev }
         }
-    };
+    }, [openMenu])
+
+    // IntersectionObserver scroll spy for section links (ignores contact route)
+    useEffect(() => {
+        if (location.pathname !== '/') return
+        const sections = NAV_LINKS.filter(l => l.type === 'section')
+            .map(l => document.getElementById(l.id))
+            .filter(Boolean)
+        if (!sections.length) return
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setActive(entry.target.id)
+                }
+            })
+        }, { rootMargin: '-50% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] })
+        sections.forEach(sec => observer.observe(sec))
+        return () => observer.disconnect()
+    }, [location.pathname])
+
+    const scrollToId = useCallback((id) => {
+        const el = document.getElementById(id)
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, [])
+
+    const onLinkClick = (e, link) => {
+        e.preventDefault()
+        if (link.type === 'route') {
+            navigate(link.to)
+            setActive(link.id)
+        } else {
+            if (location.pathname !== '/') {
+                navigate('/')
+                setTimeout(() => scrollToId(link.id), 60)
+            } else {
+                scrollToId(link.id)
+            }
+        }
+        if (openMenu) setOpenMenu(false)
+    }
 
     return (
         <>
@@ -48,27 +69,26 @@ const Navbar = () => {
                 <div className="nav-content">
                     <h1 className="nav-title">Ed</h1>
 
-                    <ul>
-                        <li>
-                            <a className={`menu-item ${active==='hero' ? 'active' : ''}`} href="#hero" onClick={(e)=>handleNavClick(e,'hero')}>Home</a>
-                        </li>
-                        <li>
-                            <a className={`menu-item ${active==='skills' ? 'active' : ''}`} href="#skills" onClick={(e)=>handleNavClick(e,'skills')}>Skills</a>
-                        </li>
-                        <li>
-                            <a className={`menu-item ${active==='projects' ? 'active' : ''}`} href="#projects" onClick={(e)=>handleNavClick(e,'projects')}>Projects</a>
-                        </li>
-                        <li>
-                            <a className={`menu-item ${active==='designs' ? 'active' : ''}`} href="#designs" onClick={(e)=>handleNavClick(e,'designs')}>Designs</a>
-                        </li>
-                        <li>
-                            <a className={`menu-item ${active==='contact' ? 'active' : ''}`} href="#contact" onClick={(e)=>handleNavClick(e,'contact')}>Contact Me</a>
-                        </li>
-
-                        <button className="contact-btn" onClick={() => {}}>
-                            Hire Me
-                        </button>
-                    </ul>
+                                        <ul role="menubar" aria-label="Primary">
+                                                {NAV_LINKS.map(link => (
+                                                        <li key={link.id} role="none">
+                                                                <a
+                                                                    role="menuitem"
+                                                                    className={`menu-item ${active===link.id ? 'active' : ''}`}
+                                                                    href={link.type==='route' ? link.to : `#${link.id}`}
+                                                                    onClick={(e)=>onLinkClick(e, link)}
+                                                                    aria-current={active===link.id ? 'page' : undefined}
+                                                                >
+                                                                    {link.label}
+                                                                </a>
+                                                        </li>
+                                                ))}
+                                                <li role="none">
+                                                    <button className="contact-btn" onClick={()=>onLinkClick(new Event('click'), { id:'contact', type:'route', to:'/contact' })}>
+                                                        Hire Me
+                                                    </button>
+                                                </li>
+                                        </ul>
 
                     <button className="menu-btn" onClick={toggleMenu}>
                         <span
