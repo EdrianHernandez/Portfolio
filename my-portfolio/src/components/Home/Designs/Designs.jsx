@@ -133,9 +133,27 @@ const Designs = () => {
   return (
   <section className="designs-section" id="designs" aria-labelledby="designs-heading" data-section>
       <h5 id="designs-heading">Designs</h5>
-      {status === 'loading' && <p style={{color:'#b9b4c8', fontSize:'.85rem'}}>Loading Figma files...</p>}
+      {status === 'loading' && (
+        <>
+          <div className="designs-grid" role="list" aria-busy="true" aria-live="polite">
+            {Array.from({ length: 4 }).map((_, idx) => (
+              <article key={idx} className="design-card design-card--skeleton" role="listitem" aria-hidden="true">
+                <div className="design-card__thumb-wrap">
+                  <div className="skeleton skeleton-thumb" />
+                </div>
+                <div className="design-card__body">
+                  <div className="skeleton skeleton-title" />
+                  <div className="skeleton skeleton-text" />
+                  <div className="skeleton skeleton-text short" />
+                  <div className="skeleton skeleton-button" />
+                </div>
+              </article>
+            ))}
+          </div>
+        </>
+      )}
       {status === 'error' && <p style={{color:'#ffb3c1', fontSize:'.75rem'}}>Could not load Figma designs: {err}</p>}
-      <div className={"designs-grid " + (designs.length > 4 ? 'designs-grid--limited' : '')} role="list" aria-live="polite">
+  <div className={"designs-grid " + (designs.length > 4 ? 'designs-grid--limited' : '')} role="list" aria-live="polite">
         {limitedDesigns.map(d => (
           <article key={d.title + d.thumbnail} className="design-card" role="listitem">
             <div className="design-card__thumb-wrap">

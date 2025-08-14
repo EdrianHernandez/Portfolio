@@ -92,7 +92,26 @@ const Projects = () => {
     <section className="projects-section" id="projects" aria-labelledby="projects-heading">
       <h5 id="projects-heading">Projects</h5>
       {status === 'loading' && (
-        <p style={{ color: '#b9b4c8', fontSize: '.85rem' }}>Fetching repositories...</p>
+        <>
+          <p style={{ color: '#b9b4c8', fontSize: '.85rem' }}>Fetching repositories...</p>
+          <div className="projects-grid" role="list" aria-busy="true" aria-live="polite">
+            {Array.from({ length: 6 }).map((_, idx) => (
+              <article key={idx} className="project-card project-card--skeleton" role="listitem" aria-hidden="true">
+                <header className="project-card__header">
+                  <div className="skeleton skeleton-title" />
+                </header>
+                <div className="skeleton skeleton-text" />
+                <div className="skeleton skeleton-text short" />
+                <ul className="project-card__tech" aria-hidden="true">
+                  <li className="skeleton skeleton-chip" />
+                  <li className="skeleton skeleton-chip" />
+                  <li className="skeleton skeleton-chip" />
+                </ul>
+                <div className="skeleton skeleton-button" />
+              </article>
+            ))}
+          </div>
+        </>
       )}
       {status === 'error' && (
         <p style={{ color: '#ffb3c1', fontSize: '.8rem' }}>Could not load repositories. {errorMsg}</p>
