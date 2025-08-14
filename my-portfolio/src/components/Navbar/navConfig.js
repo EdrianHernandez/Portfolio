@@ -3,5 +3,4 @@ export const NAV_LINKS = [
   { id: 'skills', label: 'Skills', type: 'section' },
   { id: 'projects', label: 'Projects', type: 'section' },
   { id: 'designs', label: 'Designs', type: 'section' },
-  { id: 'contact', label: 'Contact Me', type: 'route', to: '/contact' },
 ];

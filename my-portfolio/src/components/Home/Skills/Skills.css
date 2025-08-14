@@ -1,0 +1,160 @@
+.skills-container {
+	margin: 6rem 0;
+	position: relative;
+	padding: 0 2rem;
+}
+
+.skills-container::after,
+.skills-container::before {
+	content: " ";
+	width: 28rem;
+	height: 28rem;
+	border-radius: 28.125rem;
+	background: #7c66e3;
+	position: absolute;
+	z-index: -1;
+	filter:blur(200px);
+}
+
+.skills-container::after {
+	top: -3rem;
+	left: -5rem;
+}
+
+.skills-container::before {
+	background: #9e51b9;
+	bottom: 0rem;
+	right: 0rem;
+}
+
+.skills-container h5 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	margin-bottom: 3.5rem;
+}
+
+.skills-content {
+	display: flex;
+	align-items: flex-start;
+	gap: 3rem;
+}
+
+.skills {
+	flex: 1;
+	display: grid;
+	grid-gap: 2.5rem;
+	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+	align-items: stretch;
+}
+
+.skills-info {
+	flex: 1;
+}
+
+@media (max-width: 1025px) {
+	.skills-content {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.skills { grid-gap: 2rem; }
+	.skills-content { gap: 2rem; }
+	.skills-container h5 {
+		text-align: center;
+	}
+    
+}
+
+/* Slightly earlier tightening for medium-large tablets */
+@media (max-width: 900px) {
+	.skills-container {
+		padding: 0 1.5rem;
+	}
+	.skills { grid-gap: 2.25rem; }
+}
+
+/* Additional responsive breakpoints to match Hero section behavior */
+@media (max-width: 768px) {
+	.skills-container {
+		padding: 0 1.25rem;
+	}
+	.skills-container h5 {
+		font-size: 1.35rem;
+		margin-bottom: 2.5rem;
+		text-align: center;
+	}
+	.skills-content {
+	gap: 1.75rem;
+	}
+	.skills-container::after,
+	.skills-container::before {
+		width: 20rem;
+		height: 20rem;
+		filter: blur(180px);
+	}
+	.skills-container::after {
+		top: 0rem;
+		left: 0rem;
+	}
+	.skills-container::before {
+		bottom: 1rem;
+		right: 0rem;
+	}
+	.skills { grid-gap: 1.75rem; }
+}
+
+@media (max-width: 600px) {
+	.skills-container {
+		margin: 3rem 0;
+		padding: 0 1rem;
+	}
+	.skills-container h5 {
+		font-size: 1.25rem;
+		margin-bottom: 2rem;
+	}
+	.skills {
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		grid-gap: 1.25rem;
+	}
+	.skills-info {
+		margin-top: 0.5rem;
+	}
+	.skills-container::after,
+	.skills-container::before {
+		width: 16rem;
+		height: 16rem;
+		filter: blur(150px);
+	}
+}
+
+/* Narrow phones */
+@media (max-width: 480px) {
+	.skills-container h5 {
+		font-size: 1.15rem;
+		margin-bottom: 1.6rem;
+	}
+	.skills { grid-gap: 1rem; }
+	.skills-content {
+		gap: 1.25rem;
+	}
+	.skills-container {
+		margin: 2.5rem 0;
+	}
+}
+
+/* Horizontal scroll tablist on tablets and below (match mobile UI) */
+@media (max-width: 1025px) {
+	.skills {
+		display: flex;
+		gap: 0.75rem;
+		overflow-x: auto;
+		padding: 0.25rem 0.25rem 0.35rem;
+		scrollbar-width: none; /* Firefox */
+		-ms-overflow-style: none; /* IE 10+ */
+		justify-content: center; /* center row when not overflowing */
+		width: 100%;
+	}
+	.skills::-webkit-scrollbar { display: none; }
+	.skills .skills-card { flex: 0 0 auto; }
+	.skills-info { margin-top: 0.75rem; }
+}

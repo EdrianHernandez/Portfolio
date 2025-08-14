@@ -12,6 +12,34 @@ import './Designs.css'
 const TEAM_ID = '1439833541087867482'
 const FIGMA_BASE_FILE_URL = 'https://www.figma.com/file/'
 
+// Local fallback items used when no Figma token is provided or the API fails
+const fallbackDesigns = [
+  {
+    title: 'Web App Dashboard',
+    description: 'Sample UI • Updated recently',
+    thumbnail: 'https://via.placeholder.com/600x380?text=Dashboard',
+    figmaUrl: ''
+  },
+  {
+    title: 'Mobile Onboarding',
+    description: 'Sample mobile screens • Updated recently',
+    thumbnail: 'https://via.placeholder.com/600x380?text=Onboarding',
+    figmaUrl: ''
+  },
+  {
+    title: 'Landing Page Hero',
+    description: 'Marketing • Updated recently',
+    thumbnail: 'https://via.placeholder.com/600x380?text=Landing+Hero',
+    figmaUrl: ''
+  },
+  {
+    title: 'Style Guide',
+    description: 'Typography and components • Updated recently',
+    thumbnail: 'https://via.placeholder.com/600x380?text=Style+Guide',
+    figmaUrl: ''
+  }
+]
+
 const Designs = () => {
   const token = import.meta.env.VITE_FIGMA_TOKEN
   // If a token exists, start with empty list (no placeholders). Otherwise show fallback.

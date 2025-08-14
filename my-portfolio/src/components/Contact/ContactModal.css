@@ -1,0 +1,73 @@
+/* Contact modal styles */
+.contact-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,8,20,0.55);
+  backdrop-filter: blur(.4rem);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 4rem 1rem 3rem;
+  z-index: 1100;
+  animation: cmFade .25s ease;
+}
+.contact-modal {
+  width: min(600px, 100%);
+  background: rgba(26,20,55,0.85);
+  border: 1.5px solid #6d55bf;
+  border-radius: 1rem;
+  padding: 1rem 1rem 1.2rem;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(170,148,254,0.35), 0 10px 36px -8px rgba(10,0,40,0.65), 0 4px 14px -2px rgba(124,96,230,0.45);
+  max-height: calc(100vh - 7rem);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: cmSlide .35s cubic-bezier(.4,.8,.3,1);
+}
+.contact-modal__head {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 .25rem .65rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: .85rem;
+}
+.contact-modal__head h6 { margin: 0; font-size: 1rem; font-weight: 600; letter-spacing: .02em; background: linear-gradient(90deg, #aa94fe 0%, #7d60e6 70%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.contact-modal__close { background: #2a2252; border: 1px solid #6d55bf; color: #fff; width: 2rem; height: 2rem; border-radius: .55rem; cursor: pointer; font-size: 1.15rem; line-height: 1; display: flex; align-items: center; justify-content: center; transition: background .35s ease, transform .3s ease; }
+.contact-modal__close:hover, .contact-modal__close:focus-visible { background: #3a2c72; transform: rotate(6deg); }
+.contact-modal__close:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.contact-form { display: flex; flex-direction: column; gap: .85rem; }
+.form-row { display: flex; flex-direction: column; gap: .35rem; }
+.form-row label { font-size: .85rem; color: #e7e2ff; }
+.form-row input, .form-row textarea {
+  background: rgba(20, 16, 44, 0.8);
+  border: 1px solid #6d55bf;
+  color: #fff;
+  border-radius: .6rem;
+  padding: .7rem .8rem;
+  font-size: .9rem;
+  outline: none;
+}
+.form-row input:focus, .form-row textarea:focus { border-color: #aa94fe; box-shadow: 0 0 0 2px rgba(170,148,254,0.2); }
+
+.actions { display: flex; justify-content: flex-end; gap: .6rem; margin-top: .5rem; }
+.btn-secondary { background: #2a2252; border: 1px solid #6d55bf; color: #fff; padding: .65rem 1rem; border-radius: .55rem; cursor: pointer; }
+.btn-secondary:hover, .btn-secondary:focus-visible { background: #3a2c72; }
+.btn-primary {
+  --bg: linear-gradient(90deg, #a48dff 0%, #8f75ff 55%, #7c5fe6 100%);
+  background: var(--bg);
+  background-size: 160% 160%;
+  color: #fff; border: 1px solid #6953ba; padding: .65rem 1rem; border-radius: .55rem; cursor: pointer; box-shadow: 0 4px 14px -2px rgba(170,148,254,0.35); transition: background .6s ease, transform .25s ease, box-shadow .35s ease; position: relative; overflow: hidden;
+}
+.btn-primary:hover, .btn-primary:focus-visible { background-position: 100% 50%; box-shadow: 0 6px 18px -4px rgba(170,148,254,0.55); }
+.btn-primary:active { transform: translateY(0) scale(.98); }
+
+@keyframes cmFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cmSlide { from { transform: translateY(18px) scale(.98); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+
+@media (max-width: 600px) {
+  .contact-modal { border-radius: .85rem; padding: .85rem .85rem 1rem; }
+}
+
+/* Success state */
+.contact-success { text-align: center; padding: 1rem .5rem 1rem; display: flex; flex-direction: column; align-items: center; gap: .6rem; }
+.contact-success h6 { margin: .4rem 0 0; font-size: 1.05rem; font-weight: 600; letter-spacing: .02em; background: linear-gradient(90deg, #aa94fe 0%, #7d60e6 70%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.contact-success p { margin: .25rem 0 .6rem; color: #e8e4ff; font-size: .9rem; line-height: 1.45; }
+.contact-success .success-icon { width: 3rem; height: 3rem; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: linear-gradient(145deg, #29c66f, #1ba45a); color: #fff; font-weight: 800; box-shadow: 0 8px 18px -6px rgba(27,164,90,.55), 0 0 0 2px rgba(255,255,255,0.06); }

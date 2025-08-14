@@ -9,6 +9,249 @@
     <title>Vite + React</title>
   </head>
   <body>
+    <!-- Preloader shown immediately before React mounts -->
+    <div id="preloader" role="status" aria-label="Loading site">
+      <!-- Ambient background effects -->
+      <div class="preloader__bg" aria-hidden="true">
+        <div class="preloader__blob preloader__blob--1"></div>
+        <div class="preloader__blob preloader__blob--2"></div>
+        <div class="preloader__light"></div>
+      </div>
+      <div class="preloader__content">
+        <div class="preloader__brand" aria-hidden="true">
+          <div class="preloader__halo" aria-hidden="true"></div>
+          <span class="preloader__logo">Ed</span>
+          <div class="preloader__orbit preloader__orbit--1"><span class="preloader__dot"></span></div>
+          <div class="preloader__orbit preloader__orbit--2"><span class="preloader__dot"></span></div>
+        </div>
+      </div>
+    </div>
+    <style>
+      /* Inline so it shows before bundled CSS */
+      #preloader {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: #060417; /* matches site bg */
+        z-index: 9999;
+        transition: opacity 300ms ease, visibility 300ms ease;
+        isolation: isolate; /* contain stacking for pseudo grid */
+      }
+      /* Faint drifting grid overlay */
+      #preloader::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          /* vertical lines */
+          repeating-linear-gradient(
+            to right,
+            rgba(255,255,255,0.04) 0px,
+            rgba(255,255,255,0.04) 1px,
+            transparent 1px,
+            transparent 32px
+          ),
+          /* horizontal lines */
+          repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.035) 0px,
+            rgba(255,255,255,0.035) 1px,
+            transparent 1px,
+            transparent 32px
+          );
+        opacity: .065;
+        animation: preloader-gridDrift 38s linear infinite;
+        transform: translate3d(var(--gridpx, 0px), var(--gridpy, 0px), 0) rotateZ(var(--gridrot, 0deg));
+        will-change: transform;
+        pointer-events: none;
+        z-index: 0;
+      }
+      @keyframes preloader-gridDrift {
+        0% { background-position: 0 0, 0 0; }
+        100% { background-position: 120px 80px, 80px 120px; }
+      }
+      #preloader.preloader--hide {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .preloader__bg {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 0;
+        pointer-events: none;
+        transform: translate3d(var(--bgpx, 0px), var(--bgpy, 0px), 0);
+        will-change: transform;
+      }
+      .preloader__blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(34px) saturate(118%);
+        opacity: 0.42;
+        will-change: transform, opacity;
+      }
+      .preloader__blob--1 {
+        width: clamp(360px, 55vw, 840px);
+        height: clamp(360px, 55vw, 840px);
+        left: -14vw;
+        top: -16vh;
+        background: radial-gradient(circle at 30% 30%, rgba(169,147,254,0.32), rgba(126,97,231,0.18) 45%, rgba(126,97,231,0) 62%);
+        animation: preloader-blobFloat1 24s ease-in-out 0.2s infinite alternate;
+      }
+      .preloader__blob--2 {
+        width: clamp(300px, 45vw, 700px);
+        height: clamp(300px, 45vw, 700px);
+        right: -16vw;
+        bottom: -18vh;
+        background: radial-gradient(circle at 70% 70%, rgba(126,97,231,0.28), rgba(169,147,254,0.16) 40%, rgba(126,97,231,0) 60%);
+        animation: preloader-blobFloat2 30s ease-in-out 0.2s infinite alternate;
+      }
+      @keyframes preloader-blobFloat1 {
+        0% { transform: translate3d(0,0,0) scale(1) rotate(0deg); }
+        50% { transform: translate3d(2vw,1.2vh,0) scale(1.05) rotate(8deg); }
+        100% { transform: translate3d(4vw,2vh,0) scale(1.08) rotate(16deg); }
+      }
+      @keyframes preloader-blobFloat2 {
+        0% { transform: translate3d(0,0,0) scale(1) rotate(0deg); }
+        50% { transform: translate3d(-2.2vw,-1.4vh,0) scale(1.06) rotate(-10deg); }
+        100% { transform: translate3d(-4.4vw,-2.6vh,0) scale(1.1) rotate(-18deg); }
+      }
+      .preloader__content {
+        display: grid;
+        place-items: center;
+        gap: 0;
+        padding: 16px 22px;
+        text-align: center;
+        position: relative;
+        transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
+        will-change: transform;
+      }
+      .preloader__brand { position: relative; display: grid; place-items: center; }
+      .preloader__halo {
+        position: absolute;
+        inset: 50% auto auto 50%;
+        transform: translate(-50%, -50%);
+        width: clamp(120px, 32vw, 240px);
+        height: clamp(120px, 32vw, 240px);
+        border-radius: 50%;
+        background: radial-gradient(closest-side, rgba(169,147,254,0.30), rgba(169,147,254,0) 70%);
+        filter: blur(18px);
+        z-index: 1;
+        animation: preloader-haloPulse 2600ms ease-in-out 120ms infinite;
+        pointer-events: none;
+      }
+      .preloader__orbit {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%) rotate(0deg);
+        transform-origin: center;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+      .preloader__orbit--1 { width: clamp(110px, 26vw, 210px); height: clamp(110px, 26vw, 210px); animation: preloader-orbitCW 6.8s linear infinite; }
+      .preloader__orbit--2 { width: clamp(140px, 32vw, 260px); height: clamp(140px, 32vw, 260px); animation: preloader-orbitCCW 9.6s linear infinite; opacity: .9; }
+      .preloader__dot { position: absolute; top: 50%; left: 100%; transform: translate(-50%, -50%); width: 7px; height: 7px; border-radius: 50%; background: radial-gradient(circle, #ffffff 35%, #a993fe 70%); box-shadow: 0 0 14px rgba(169,147,254,0.7); }
+      @keyframes preloader-orbitCW { to { transform: translate(-50%, -50%) rotate(360deg); } }
+      @keyframes preloader-orbitCCW { to { transform: translate(-50%, -50%) rotate(-360deg); } }
+      /* Use same brand look as Navbar's .nav-title */
+      .preloader__logo {
+        font-family: 'Outfit', 'Segoe UI', sans-serif;
+        font-size: clamp(2rem, 6vw, 3.25rem);
+        font-weight: 600;
+        letter-spacing: 1px;
+        background: linear-gradient(90deg, #d9d2ff 0%, #a993fe 35%, #7e61e7 85%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        line-height: 1;
+        filter: drop-shadow(0 6px 28px rgba(126, 97, 231, 0.22));
+        user-select: none;
+        /* Subtle entrance + single gradient sweep */
+        background-size: 200% 100%;
+        animation: preloader-pop 520ms cubic-bezier(.22,1,.36,1) 80ms both,
+                   preloader-brandShift 1400ms ease-out 160ms both,
+                   preloader-logoGlow 3000ms ease-in-out 200ms infinite;
+        position: relative;
+        z-index: 2;
+      }
+      @keyframes preloader-pop {
+        0% { opacity: 0; transform: translateY(6px) scale(.965); filter: drop-shadow(0 0 0 rgba(126,97,231,0)); }
+        60% { opacity: 1; transform: translateY(0) scale(1.01); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      @keyframes preloader-brandShift {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+      }
+      @keyframes preloader-haloPulse {
+        0% { transform: translate(-50%, -50%) scale(0.98); opacity: 0.9; }
+        50% { transform: translate(-50%, -50%) scale(1.04); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(0.98); opacity: 0.9; }
+      }
+      @keyframes preloader-logoGlow {
+        0% { filter: drop-shadow(0 6px 18px rgba(126,97,231,0.20)); letter-spacing: 1px; }
+        50% { filter: drop-shadow(0 10px 26px rgba(126,97,231,0.35)); letter-spacing: 1.3px; }
+        100% { filter: drop-shadow(0 6px 18px rgba(126,97,231,0.20)); letter-spacing: 1px; }
+      }
+      .preloader__light {
+        position: absolute; inset: -20%;
+        background: linear-gradient(115deg, transparent 45%, rgba(169,147,254,0.08) 50%, transparent 55%);
+        animation: preloader-lightSweep 7.5s linear infinite;
+        mix-blend-mode: screen;
+        pointer-events: none;
+      }
+      @keyframes preloader-lightSweep {
+        0% { transform: translateX(-30%) translateY(-30%) rotate(0.001deg); }
+        100% { transform: translateX(30%) translateY(30%) rotate(0.001deg); }
+      }
+      /* Respect users who prefer less motion */
+      @media (prefers-reduced-motion: reduce) {
+        #preloader { transition: none; }
+        .preloader__logo { animation: none; }
+        .preloader__halo { animation: none; }
+        #preloader::before { animation: none; }
+        .preloader__blob { animation: none; }
+        .preloader__light { animation: none; }
+        .preloader__orbit--1, .preloader__orbit--2 { animation: none; }
+      }
+    </style>
+    <script>
+      (function(){
+        try {
+          if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        } catch(_) {}
+        const preloader = document.getElementById('preloader');
+        if(!preloader) return;
+        const content = preloader.querySelector('.preloader__content');
+        const bg = preloader.querySelector('.preloader__bg');
+        let rafId = null;
+        let lastX = 0, lastY = 0;
+        const onMove = (e) => {
+          const w = window.innerWidth || 1, h = window.innerHeight || 1;
+          const cx = (e.clientX ?? w/2) / w - 0.5;
+          const cy = (e.clientY ?? h/2) / h - 0.5;
+          lastX = cx; lastY = cy;
+          if(rafId) return;
+          rafId = requestAnimationFrame(() => {
+            rafId = null;
+            const px = (lastX * 10).toFixed(2) + 'px';
+            const py = (lastY * 10).toFixed(2) + 'px';
+            const bgpx = (lastX * -6).toFixed(2) + 'px';
+            const bgpy = (lastY * -6).toFixed(2) + 'px';
+            const gpx = (lastX * 4).toFixed(2) + 'px';
+            const gpy = (lastY * 4).toFixed(2) + 'px';
+            const grot = (lastX * -1.2).toFixed(3) + 'deg';
+            if(content) { content.style.setProperty('--px', px); content.style.setProperty('--py', py); }
+            if(bg) { bg.style.setProperty('--bgpx', bgpx); bg.style.setProperty('--bgpy', bgpy); }
+            preloader.style.setProperty('--gridpx', gpx);
+            preloader.style.setProperty('--gridpy', gpy);
+            preloader.style.setProperty('--gridrot', grot);
+          });
+        };
+        window.addEventListener('pointermove', onMove, { passive: true });
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -87,28 +87,59 @@
     opacity: 1;
 }
 
-.contact-btn {
-    font-size: 0.9rem;
-    font-weight: 500;
-    display: flex;
+/* Hire me CTA */
+.hire-btn {
+    margin-left: 0.5rem;
+    padding: 0.6rem 1rem;
+    min-height: 2.5rem; /* align with menu button height */
+    border-radius: 0.65rem;
+    border: 1px solid transparent; /* enables border-box gradient */
+    /* Base: subtle glass with gradient border; upgrade on hover */
+    background:
+        linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03)) padding-box,
+        linear-gradient(90deg, #a993fe, #7e61e7) border-box;
+    color: #f6f4ff; /* light text on dark glass */
+    font-weight: 650;
+    font-size: 0.92rem;
+    text-decoration: none;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    color:#fff;
-    background: linear-gradient(90deg, #a993fe 0%, #7e61e7 100%);
-    padding: 0.6rem 2rem;
-    border: none;
-    outline: 1.5px solid transparent;
-    border-radius: 0.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    line-height: 1;
+    box-shadow: 0 10px 22px -14px rgba(126, 97, 231, 0.55);
+    transition: background .6s ease, transform .25s ease, box-shadow .35s ease, color .2s ease;
+    white-space: nowrap;
     position: relative;
+    overflow: hidden; /* for sheen */
 }
+.hire-btn:hover,
+.hire-btn:focus-visible {
+    /* Match project-card__link hover: animated gradient shift + lift */
+    background: linear-gradient(90deg, #a48dff 0%, #8f75ff 55%, #7c5fe6 100%);
+    background-size: 160% 160%;
+    background-position: 100% 50%;
+    color: #ffffff; /* keep white like project link */
+    box-shadow: 0 6px 18px -4px rgba(170,148,254,0.55);
+}
+.hire-btn:active {
+    transform: translateY(0) scale(.97);
+}
+.hire-btn:focus-visible { outline: 2px solid #ffffff; outline-offset: 2px; }
 
-.contact-btn:hover,
-.contact-btn:focus-visible {
-    outline: 1.5px solid #a993fe;
-    background: transparent;
-    color: #a993fe;
+/* Sheen effect like project-card__link */
+.hire-btn::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -40%;
+    width: 40%; height: 100%;
+    background: linear-gradient(75deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.55) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-18deg) translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+.hire-btn:hover::before,
+.hire-btn:focus-visible::before {
+    animation: prBtnSheen 1.4s ease forwards;
 }
 
 .menu-btn {
@@ -172,16 +203,30 @@
     .nav-content ul {
         display: none;
     }
+    .hire-btn { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hire-btn { transition: none; }
+    .hire-btn::before { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .menu-item::before { transition: none; }
-    .contact-btn, .menu-btn { transition: none; }
+    .menu-btn { transition: none; }
 }
 
 @media (max-width: 1325px) {
     .nav-wrapper {
         padding: 0 2rem;
     }
+}
+
+/* Keyframes shared with Projects link */
+@keyframes prBtnSheen {
+    0% { transform: skewX(-18deg) translateX(-120%); opacity: 0; }
+    15% { opacity: 1; }
+    55% { opacity: .9; }
+    100% { transform: skewX(-18deg) translateX(320%); opacity: 0; }
 }
 
