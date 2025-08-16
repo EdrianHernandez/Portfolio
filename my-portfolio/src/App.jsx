@@ -49,12 +49,13 @@ const App = () => {
     }
 
     // Critical assets for first paint (hero + key icons)
+    const BASE = import.meta.env.BASE_URL || '/'
     const criticalImages = [
-      '/assets/hero_img.jpg',
-      '/assets/icons8-react-24.png',
-      '/assets/icons8-html-48.png',
-      '/assets/icons8-css-48.png',
-      '/assets/icons8-javascript-48.png'
+      `${BASE}assets/hero_img.jpg`,
+      `${BASE}assets/icons8-react-24.png`,
+      `${BASE}assets/icons8-html-48.png`,
+      `${BASE}assets/icons8-css-48.png`,
+      `${BASE}assets/icons8-javascript-48.png`
     ]
 
     const master = Promise.all([
@@ -94,12 +95,14 @@ const App = () => {
     }
   }, [])
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Navbar onOpenContact={openContact} />
       <Routes>
         <Route path="/" element={<Home />} />
-        </Routes>
-        <Footer />
+        {/* Fallback so unknown paths still show the landing page */}
+        <Route path="*" element={<Home />} />
+      </Routes>
+      <Footer />
       <ContactModal open={contactOpen} onClose={closeContact} />
     </BrowserRouter>
   )

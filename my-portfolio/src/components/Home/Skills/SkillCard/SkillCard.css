@@ -95,6 +95,7 @@
 		max-width: none;
 		border-radius: 999px;
 		transition: background .3s ease, color .3s ease;
+		scroll-snap-align: center;
 	}
 	.skills-card:not(.active) {
 		padding: 0.55rem; /* tighter for icon-only */
@@ -119,6 +120,8 @@
 	}
 	/* Hide label for inactive tabs visually (still exposed via aria-label on parent) */
 	.skills-card:not(.active) span { display: none; }
+	/* But reveal on keyboard focus for better accessibility */
+	.skills-card:focus-visible span { display: inline; }
 	/* Muted inactive icon */
 	.skills-card:not(.active) .skills-icon img { filter: grayscale(45%) brightness(0.85); opacity: 0.85; }
 	/* Active styling */
@@ -135,9 +138,16 @@
 }
 
 @media (max-width: 480px) {
-	.skills-card { padding: 0.5rem 0.75rem; }
-	.skills-card:not(.active) { padding: 0.5rem; }
-	.skills-icon { width: 2.1rem; height: 2.1rem; }
-	.skills-icon img { width: 1.2rem; }
+	.skills-card { padding: 0.45rem 0.7rem; }
+	.skills-card:not(.active) { padding: 0.45rem; }
+	.skills-icon { width: 2rem; height: 2rem; }
+	.skills-icon img { width: 1.1rem; }
 	.skills-card span { font-size: 0.72rem; }
+}
+
+@media (max-width: 390px) {
+	.skills-card { padding: 0.4rem 0.6rem; }
+	.skills-card:not(.active) { padding: 0.4rem; }
+	.skills-icon { width: 1.9rem; height: 1.9rem; }
+	.skills-icon img { width: 1.05rem; }
 }

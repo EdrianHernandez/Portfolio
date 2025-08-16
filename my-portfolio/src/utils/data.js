@@ -1,7 +1,11 @@
+const BASE = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL)
+    ? import.meta.env.BASE_URL
+    : '/'
+
 export const SKILLS = [
     {
         title: "Frontend",
-        icon: "./assets/icons8-ui-64.png",
+    icon: `${BASE}assets/icons8-ui-64.png`,
         skills: [
             { skill: "HTML5", percentage: "80%"},
             { skill: "CSS3 (Tailwind)", percentage: "70%" },
@@ -11,7 +15,7 @@ export const SKILLS = [
     },
     {
         title: "Backend",
-        icon: "./assets/icons8-backend-64.png",
+    icon: `${BASE}assets/icons8-backend-64.png`,
         skills: [
             { skill: "MongoDB", percentage: "50%" },
             { skill: "MySQL", percentage: "40%" },
@@ -19,7 +23,7 @@ export const SKILLS = [
     },
     {
         title: "Tools",
-        icon: "./assets/icons8-tools-64.png",
+    icon: `${BASE}assets/icons8-tools-64.png`,
         skills: [
             { skill: "Git & Github", percentage: "75%" },
             { skill: "Visual Studio Code", percentage: "75%" },
@@ -29,7 +33,7 @@ export const SKILLS = [
     },
     {
         title: "Soft Skills",
-        icon: "./assets/icons8-communication-skills-50.png",
+    icon: `${BASE}assets/icons8-communication-skills-50.png`,
         skills: [
             { skill: "Problem Solving", percentage: "80%" },
             { skill: "Teamwork", percentage: "90%" },

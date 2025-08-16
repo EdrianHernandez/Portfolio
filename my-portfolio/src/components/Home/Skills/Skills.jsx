@@ -55,6 +55,7 @@ const Skills = () => {
         <div
           className="skills"
           role="tablist"
+          aria-orientation="horizontal"
           aria-label="Skill categories"
           onKeyDown={handleKeyDown}
         >
