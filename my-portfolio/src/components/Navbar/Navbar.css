@@ -1,5 +1,5 @@
 .nav-wrapper {
-    background: rgba(10, 6, 31, 0.35);
+    background: lab(9.23% -0.25 0.7 / 0.35);
     padding: 0.5rem 0;
     position: sticky;
     top: 0;

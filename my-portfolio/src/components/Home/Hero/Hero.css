@@ -13,7 +13,7 @@
 	width: 28.125rem;
 	height: 28.125rem;
 	border-radius: 28.125rem;
-	background: #0d47a1;
+	background: #1A1A19;
 	position: absolute;
 	z-index: -1;
 	filter: blur(225px);
@@ -115,6 +115,15 @@
 	height: 100%;
 	object-fit: cover;
 	border-radius: 35px;
+	/* blur-up placeholder while decoding */
+	filter: blur(12px) saturate(110%);
+	transform: scale(1.02);
+	transition: filter 300ms ease, transform 300ms ease;
+}
+
+.profile-img img.loaded {
+	filter: none;
+	transform: none;
 }
 
 @keyframes float {
