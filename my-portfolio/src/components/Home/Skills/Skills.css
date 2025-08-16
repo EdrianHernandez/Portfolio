@@ -151,7 +151,7 @@
 		padding: 0.25rem 0.25rem 0.5rem;
 		scrollbar-width: none; /* Firefox */
 		-ms-overflow-style: none; /* IE 10+ */
-		justify-content: flex-start; /* natural left align when overflowing */
+		justify-content: center; /* center tablist on tablets */
 		width: 100%;
 		scroll-snap-type: x mandatory;
 		scroll-padding: 0 12px;
